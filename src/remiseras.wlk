@@ -1,41 +1,4 @@
-/*
- * definir remiseras y clientes.
- */
-
-object ludmila {
-	method precioPorKilometro() = 18
-}
-
-object anaMaria {
-	var estaEconomicamenteEstable = true
-	var precioPorKilometro = 30 
-	
-	method estaEconomicamenteEstable() = estaEconomicamenteEstable 
-	method cambiarEstabilidad(){
-		estaEconomicamenteEstable = false
-		precioPorKilometro = 25
-	}
-	method precioPorKilometro() = precioPorKilometro
-	method precioPorKilometro(precio){
-		/*if (!self.estaEconomicamenteEstable()){
-			precioPorKilometro = 25
-		}
-		else {
-			precioPorKilometro = 30
-		}*/
-	}
-}
-
-object teresa {
-	var precioPorKilometro = 22
-	
-	method precioPorKilometro()= precioPorKilometro
-	method precioPorKilometro(precio){
-		precioPorKilometro = precio
-	}
-}
-
-// Remiseras
+import clientes.*
 
 object roxana {
 	method precioViaje(cliente, kilometros)= cliente.precioPorKilometro() * kilometros
@@ -44,19 +7,15 @@ object roxana {
 object gabriela {
 	method precioViaje(cliente, kilometros)= cliente.precioPorKilometro() * kilometros * 1.2
 }
+
 object mariela {
 	method precioViaje(cliente, kilometros) {
-		if (kilometros <= 2) {
-			return 50
-		}
-		else {
-			return cliente.precioPorKilometro() * kilometros
-		}
+		return 50.max(cliente.precioPorKilometros()*kilometros)
 	}
 }
 
 object juana {
-	method precioViaje(cliente, kilometros) {
+	method precioViaje(_, kilometros) { // _ = cliente
 		if (kilometros <= 8){
 			return 100
 		}
@@ -68,15 +27,18 @@ object juana {
 
 // cadeta
 
-object melina {
-	var clienta  
+object lucia {
+	var estaReemplazando  
 	
-	method clienta()= clienta
-	method trabajarParaClienta(client){
-		client = clienta
+	method estaReemplazando()= estaReemplazando
+	method estaReemplazando(remisera){
+		if (self == remisera) {
+			self.error("No se puede reemplazar a si misma")
+		}
+		estaReemplazando = remisera
 	}
-	method precioPorKilometro(precio){
-		return precio == clienta.precioPorKilometro() - 3	
+	method precioViaje(cliente, kilometros){
+		return estaReemplazando.precioViaje(cliente, kilometros)	
 	}
 }
 

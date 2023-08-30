@@ -1,0 +1,43 @@
+import clientes.*
+
+describe "testing Ana Maria"{
+
+	test "Ana Maria esta economicamente estable" {
+		assert.that(anaMaria.estaEconomicamenteEstable())
+	}
+	
+	test "Precio del kilómetros cuando esta economicamente estable" {
+		assert.equals(30, anaMaria.precioPorKilometro())
+	}
+	
+	test "Ana Maria no esta economicamente estable" {
+		anaMaria.cambiarEstabilidad()
+		assert.notThat(anaMaria.estaEconomicamenteEstable())
+	}
+	
+	test "Precio del kilómetros cuando no esta economicamente estable" {
+		anaMaria.cambiarEstabilidad()
+		assert.equals(25, anaMaria.precioPorKilometro())
+	}
+}
+
+describe "Testing Teresa" {
+	test "Precio del kilómetro sin cambios igual a 22" {
+		assert.equals(22, teresa.precioPorKilometro())
+	}
+
+	test "Precio del kilómetro con cambios igual a 40" {
+		teresa.precioPorKilometro(40)
+		assert.equals(40, teresa.precioPorKilometro())
+	}				
+}
+
+
+
+
+
+
+
+
+
+
